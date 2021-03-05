@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <main class="container">
+        <section class="section-card">
+            <span class="project-title">
+                <h2>{{ project.title }}</h2>
+                <a href="{% url 'index' %}" class="home">
+                    <i class="bi bi-house-fill"></i>
+                </a>
+            </span>
+            {{ project.description|safe }}
+        </section>
+
+        <section class="section-card">
+            <h2>Skills Featured</h2>
+            <div class="skill-container">
+                {% for skill in project_skills %}
+                <figure class="skill-box">
+                    <div class="skill-icon-box">
+                        <img class="skill-icon" src="{{ skill.name.icon.url }}" alt="">
+                    </div>
+                    <figcaption>{{ skill.name.name }}</figcaption>
+                </figure>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="section-card">
+            <div class="row project-container">
+                {% if 'what-the-chuck' in request.path %}
+
+                <div id="container" class="col-md-12">
+                    <h1 class="chuck-title">What the Chuck?!</h1>
+                    <div id="app-box">
+                      <div id="chuck-box">
+                        <img id="chuck" class="backflip" src="{% static 'img/nunchuck_norris.svg' %}" alt="Chuck Norris" />
+                      </div>
+                  
+                      <div id="quote-box">
+                        <p id="quote"></p>  
+                      </div>
+                      
+                    </div>
+                    <div id="instructions">
+                      <p>
+                        Click on Chuck Norris to learn a random fact about him...if you dare!
+                      </p>
+                    </div>
+                  </div>          
+                                  
+                {% else %}
+                    <figure class="col-md-6">
+                        <img class="img-responsive" src="{{ project.screenshot1.url }}" alt="">
+                        <figcaption>Screenshot description</figcaption>
+                    </figure>
+
+                    <figure class="col-md-6">
+                        <img class="img-responsive" src="{{ project.screenshot2.url }}" alt="">
+                        <figcaption>Screenshot description</figcaption>
+                    </figure>
+
+                    <figure class="col-md-6">
+                        <img class="img-responsive" src="{{ project.screenshot3.url }}" alt="">
+                        <figcaption>Screenshot description</figcaption>
+                    </figure>
+
+                    <figure class="col-md-6">
+                        <img class="img-responsive" src="{{ project.screenshot4.url }}" alt="">
+                        <figcaption>Screenshot description</figcaption>
+                    </figure>
+                {% endif %}
+
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2>Project Links</h2>
+            <div class="row justify-content-start project-link-container">
+                <a href="{{ project.project_url }}" class="col-6 col-sm-4 col-md-3 col-xl-2 project-link" target="_blank">
+                    <p>
+                        <span class="project-link-icon">
+                            <i class="bi bi-globe2"></i>
+                        </span>
+                        Visit Project
+                    </p>
+                </a>
+                <a href="{{ project.code_url }}" class="col-6 col-sm-4 col-md-3 col-xl-2 project-link" target="_blank">
+                    <p>
+                        <span class="project-link-icon">
+                            <i class="bi bi-github"></i>
+                        </span>
+                        View Code
+                    </p>
+                </a>    
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

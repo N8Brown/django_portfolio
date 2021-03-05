@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main class="container">
+        <section class="section-card">
+            <h2>About me</h2>
+            {{ about.about | safe }}
+        </section>
+
+        {% if projects %}
+        <section class="section-card">
+            <h2>Projects</h2>
+            <div class="row project-container">
+                {% for project in projects %}
+                <a class="col-md-4 project-link" href="{% url 'project' project.slug %}">
+                    <figure>
+                        <img class="img-responsive" src="{{ project.main_image.url }}" alt="">
+                        <h3>{{ project.title }}</h3>
+                    </figure>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if skills %}
+        <section class="section-card">
+            <h2>Programming Languages & Frameworks</h2>
+            <div class="skill-container">
+                {% for skill in skills%}
+                    <figure class="skill-box">
+                        <div class="skill-icon-box">
+                            <img class="skill-icon" src="{{ skill.icon.url }}" alt="">
+                        </div>
+                        <figcaption>{{ skill.name }}</figcaption>
+                    </figure>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="section-card">
+            <h2>Education</h2>
+            <article>
+                <small>2018</small>
+                <h3>A.S. Information Technology</h3>
+                <p>Southern New Hampshire University</p>
+            </article>
+        </section>
+
+        {% if categories and recommendations %}
+        <section class="section-card">
+            <h2>Recommended Resources</h2>
+            {% for category in categories %}
+                <article class="recommendation">
+                    <h3>{{ category.name|upper }}</h3>
+                        {% for recommendation in recommendations %}
+                            {% if recommendation.name == category %}
+                                <p>
+                                    <a href="{{ recommendation.url}}" target="_blank"><span class="h4">{{ recommendation.title }}</span></a> - {{ recommendation.description }}
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                </article>
+            {% endfor %}
+        </section>
+        {% endif %}
+    </main>
+
+
+{% endblock %}
